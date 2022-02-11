@@ -1,0 +1,58 @@
+server:
+  port: 8000
+
+spring:
+  freemarker:
+    check-template-location: false
+  profiles:
+    active: dev
+    #配置当前生效环境配置  修改成 active: prod即生效生产环境的配置  xxxx
+  jackson:
+    time-zone: GMT+8
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+  #配置 Jpa
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  redis:
+    #数据库索引
+    database: ${REDIS_DB:0}
+    #修改redis 使用的db 有1-15可以选择 选择5 不与另一个项目冲突
+    host: ${REDIS_HOST:127.0.0.1} #堡垒机环境/服务台/开发环境  是127.0.0.1
+    port: ${REDIS_PORT:6379}  #堡垒机环境是/服务台/开发环境是 6739
+    password: ${REDIS_PWD:}   #堡垒机环境的密码是test  服务台环境是空  开发环境自己看着办  redis的密码很奇怪 是每次服务启动后 给服务设置的redis临时密码 下次redis服务重启 redis的密码又会重置为空
+    #连接超时时间
+    timeout: 5000
+
+task:
+  pool:
+    # 核心线程池大小
+    core-pool-size: 10
+    # 最大线程数
+    max-pool-size: 30
+    # 活跃时间
+    keep-alive-seconds: 60
+    # 队列容量
+    queue-capacity: 50
+
+#七牛云
+qiniu:
+  # 文件大小 /M
+  max-size: 15
+
+#邮箱验证码有效时间/秒
+code:
+  expiration: 300
+
+#密码加密传输，前端公钥加密，后端私钥解密
+rsa:
+  private_key: MIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEA0vfvyTdGJkdbHkB8mp0f3FE0GYP3AYPaJF7jUd1M0XxFSE2ceK3k2kw20YvQ09NJKk+OMjWQl9WitG9pB6tSCQIDAQABAkA2SimBrWC2/wvauBuYqjCFwLvYiRYqZKThUS3MZlebXJiLB+Ue/gUifAAKIg1avttUZsHBHrop4qfJCwAI0+YRAiEA+W3NK/RaXtnRqmoUUkb59zsZUBLpvZgQPfj1MhyHDz0CIQDYhsAhPJ3mgS64NbUZmGWuuNKp5coY2GIj/zYDMJp6vQIgUueLFXv/eZ1ekgz2Oi67MNCk5jeTF2BurZqNLR3MSmUCIFT3Q6uHMtsB9Eha4u7hS31tj1UWE+D+ADzp59MGnoftAiBeHT7gDMuqeJHPL4b+kC+gzV4FGTfhR9q3tTbklZkD2A==
