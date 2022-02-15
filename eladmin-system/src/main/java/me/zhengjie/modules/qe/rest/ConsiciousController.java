@@ -331,12 +331,12 @@ public class ConsiciousController {
 
                 Consiciouszhiliangzhishi consiciouszhiliangzhishi=new Consiciouszhiliangzhishi();
                 consiciouszhiliangzhishi.setDate(date);
-                consiciouszhiliangzhishi.setChognya(getgroupzhiliangrenzhi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
-                consiciouszhiliangzhishi.setCheshen(getgroupzhiliangrenzhi("车身车间",date));
-                consiciouszhiliangzhishi.setTuzhuang(getgroupzhiliangrenzhi("涂装车间",date));
-                consiciouszhiliangzhishi.setZongzhuang(getgroupzhiliangrenzhi("总装车间",date));
-                consiciouszhiliangzhishi.setJijia(getgroupzhiliangrenzhi("机加车间",date));
-                consiciouszhiliangzhishi.setZhuangpei(getgroupzhiliangrenzhi("装配车间",date));
+                consiciouszhiliangzhishi.setChognya(getgroupzhiliangzhishi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
+                consiciouszhiliangzhishi.setCheshen(getgroupzhiliangzhishi("车身车间",date));
+                consiciouszhiliangzhishi.setTuzhuang(getgroupzhiliangzhishi("涂装车间",date));
+                consiciouszhiliangzhishi.setZongzhuang(getgroupzhiliangzhishi("总装车间",date));
+                consiciouszhiliangzhishi.setJijia(getgroupzhiliangzhishi("机加车间",date));
+                consiciouszhiliangzhishi.setZhuangpei(getgroupzhiliangzhishi("装配车间",date));
                 arrayList.add(i-1,consiciouszhiliangzhishi);//往最后要返回的List集里面添加这一条list
             }
         }else{ //如果不是本年的数据，默认该年有12个月份
@@ -351,12 +351,12 @@ public class ConsiciousController {
 
                 Consiciouszhiliangzhishi consiciouszhiliangzhishi=new Consiciouszhiliangzhishi();
                 consiciouszhiliangzhishi.setDate(date);
-                consiciouszhiliangzhishi.setChognya(getgroupzhiliangrenzhi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
-                consiciouszhiliangzhishi.setCheshen(getgroupzhiliangrenzhi("车身车间",date));
-                consiciouszhiliangzhishi.setTuzhuang(getgroupzhiliangrenzhi("涂装车间",date));
-                consiciouszhiliangzhishi.setZongzhuang(getgroupzhiliangrenzhi("总装车间",date));
-                consiciouszhiliangzhishi.setJijia(getgroupzhiliangrenzhi("机加车间",date));
-                consiciouszhiliangzhishi.setZhuangpei(getgroupzhiliangrenzhi("装配车间",date));
+                consiciouszhiliangzhishi.setChognya(getgroupzhiliangzhishi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
+                consiciouszhiliangzhishi.setCheshen(getgroupzhiliangzhishi("车身车间",date));
+                consiciouszhiliangzhishi.setTuzhuang(getgroupzhiliangzhishi("涂装车间",date));
+                consiciouszhiliangzhishi.setZongzhuang(getgroupzhiliangzhishi("总装车间",date));
+                consiciouszhiliangzhishi.setJijia(getgroupzhiliangzhishi("机加车间",date));
+                consiciouszhiliangzhishi.setZhuangpei(getgroupzhiliangzhishi("装配车间",date));
                 arrayList.add(i-1,consiciouszhiliangzhishi);//往最后要返回的List集里面添加这一条list
             }}
 
@@ -382,12 +382,12 @@ public class ConsiciousController {
 
                 Consiciouszhiliangzhishi consiciouszhiliangzhishi=new Consiciouszhiliangzhishi();
                 consiciouszhiliangzhishi.setDate(date);
-                consiciouszhiliangzhishi.setChognya(getworkshopzhiliangrenzhi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
-                consiciouszhiliangzhishi.setCheshen(getworkshopzhiliangrenzhi("车身车间",date));
-                consiciouszhiliangzhishi.setTuzhuang(getworkshopzhiliangrenzhi("涂装车间",date));
-                consiciouszhiliangzhishi.setZongzhuang(getworkshopzhiliangrenzhi("总装车间",date));
-                consiciouszhiliangzhishi.setJijia(getworkshopzhiliangrenzhi("机加车间",date));
-                consiciouszhiliangzhishi.setZhuangpei(getworkshopzhiliangrenzhi("装配车间",date));
+                consiciouszhiliangzhishi.setChognya(getworkshopzhiliangzhishi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
+                consiciouszhiliangzhishi.setCheshen(getworkshopzhiliangzhishi("车身车间",date));
+                consiciouszhiliangzhishi.setTuzhuang(getworkshopzhiliangzhishi("涂装车间",date));
+                consiciouszhiliangzhishi.setZongzhuang(getworkshopzhiliangzhishi("总装车间",date));
+                consiciouszhiliangzhishi.setJijia(getworkshopzhiliangzhishi("机加车间",date));
+                consiciouszhiliangzhishi.setZhuangpei(getworkshopzhiliangzhishi("装配车间",date));
                 arrayList.add(i-1,consiciouszhiliangzhishi);//往最后要返回的List集里面添加这一条list
             }
         }else{ //如果不是本年的数据，默认该年有12个月份
@@ -402,12 +402,12 @@ public class ConsiciousController {
 
                 Consiciouszhiliangzhishi consiciouszhiliangzhishi=new Consiciouszhiliangzhishi();
                 consiciouszhiliangzhishi.setDate(date);
-                consiciouszhiliangzhishi.setChognya(getworkshopzhiliangrenzhi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
-                consiciouszhiliangzhishi.setCheshen(getworkshopzhiliangrenzhi("车身车间",date));
-                consiciouszhiliangzhishi.setTuzhuang(getworkshopzhiliangrenzhi("涂装车间",date));
-                consiciouszhiliangzhishi.setZongzhuang(getworkshopzhiliangrenzhi("总装车间",date));
-                consiciouszhiliangzhishi.setJijia(getworkshopzhiliangrenzhi("机加车间",date));
-                consiciouszhiliangzhishi.setZhuangpei(getworkshopzhiliangrenzhi("装配车间",date));
+                consiciouszhiliangzhishi.setChognya(getworkshopzhiliangzhishi("冲压车间",date));//车间名和日期格式不能错，否则出现bug
+                consiciouszhiliangzhishi.setCheshen(getworkshopzhiliangzhishi("车身车间",date));
+                consiciouszhiliangzhishi.setTuzhuang(getworkshopzhiliangzhishi("涂装车间",date));
+                consiciouszhiliangzhishi.setZongzhuang(getworkshopzhiliangzhishi("总装车间",date));
+                consiciouszhiliangzhishi.setJijia(getworkshopzhiliangzhishi("机加车间",date));
+                consiciouszhiliangzhishi.setZhuangpei(getworkshopzhiliangzhishi("装配车间",date));
                 arrayList.add(i-1,consiciouszhiliangzhishi);//往最后要返回的List集里面添加这一条list
             }}
 

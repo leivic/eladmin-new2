@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 public class EnvironmentController {
 
     @Autowired
-    private GongWeiFuHeService gongWeiFuHeService;
+    private GongWeiFuHeService gongWeiFuHeService=new GongWeiFuHeService();
 
     @Autowired
     private EnvironmentBaseStationService environmentBaseStationService;
@@ -863,6 +863,7 @@ public class EnvironmentController {
     public Double getZoneX12(String zone,String date){
         return environmentBaseZoneService.findAllByZoneAndYear(zone,date).stream().mapToDouble(EnvironmentBaseZone::getX12).average().orElse(0D); //车间名和日期格式不能错，x12不能为空
     }
+
 
     /*  "区域: 获取区域健康水平完整图表数据 " 获取列表平均值后的x11*/
     public Double getZoneX11(String zone,String date){ //几月的某区域的健康水平的平均值
