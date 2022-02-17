@@ -170,39 +170,63 @@ public class ContinueController {
         return continueDatasourceService.findByDateAndZone(zone, date);
     }
     public double getx1(String zone,String date){
+         try{findByzoneanddate(zone, date).getX1();}
+         catch (Exception e){return 0;}
          return findByzoneanddate(zone, date).getX1();
     }
     public double getx2(String zone,String date){
+        try{findByzoneanddate(zone, date).getX2();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX2();
     }
     public double getx3(String zone,String date){
+        try{findByzoneanddate(zone, date).getX3();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX3();
     }
     public double getx4(String zone,String date){
+        try{findByzoneanddate(zone, date).getX4();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX4();
     }
     public double getx5(String zone,String date){
+        try{findByzoneanddate(zone, date).getX5();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX5();
     }
     public double getx6(String zone,String date){
+        try{findByzoneanddate(zone, date).getX6();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX6();
     }
     public double getx7(String zone,String date){
+        try{findByzoneanddate(zone, date).getX7();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX7();
     }
     public double getx8(String zone,String date){
+        try{findByzoneanddate(zone, date).getX8();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX8();
     }
     public double getx9(String zone,String date){
+        try{findByzoneanddate(zone, date).getX9();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX9();
     }
     public double getx10(String zone,String date){
+        try{findByzoneanddate(zone, date).getX10();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX10();
     }
     public double getx11(String zone,String date){
+        try{findByzoneanddate(zone, date).getX11();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX11();
     }
     public double getx12(String zone,String date){
+        try{findByzoneanddate(zone, date).getX12();}
+        catch (Exception e){return 0;}
         return findByzoneanddate(zone, date).getX12();
     }
     // 更新或者新增数据
