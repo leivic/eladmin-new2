@@ -88,16 +88,13 @@ public class EnvironmentController {
 
     @ApiOperation("工位: 增加基础数据")
     @PostMapping(value = "/addEnvironmentBaseStation")
-    public int addEnvironmentBaseStation(@RequestParam("file") MultipartFile file, String nickName) throws IOException{ //即便是传一个文件，也是可以正常传递变量，文件一个一个参数嘛
+    public int addEnvironmentBaseStation(@RequestParam("file") MultipartFile file, String nickName,String date1) throws IOException{ //即便是传一个文件，也是可以正常传递变量，文件一个一个参数嘛
         FileInputStream fns=(FileInputStream)file.getInputStream();
         XSSFWorkbook wb=new XSSFWorkbook(fns);//xssWorkbook少了hssworkbook的解析成 POIFSFileSystem数据类型这一步
         XSSFSheet sheetAt = wb.getSheetAt(0);
         if(sheetAt==null) {
             return 0 ; //前端通过返回的编码 判断回复什么样的信息 我返回一个int 返回0时，判断得到sheetA没有表
         }
-        if(sheetAt.getRow(0).getCell(3).toString().length()!=12){
-            return 1;//返回1 时，说明日期单元格位数不对
-        };
         String cell5=sheetAt.getRow(0).getCell(5).toString();
         if(cell5.equals("冲压车间")==false & cell5.equals("车身车间")==false & cell5.equals("涂装车间")==false & cell5.equals("总装车间")==false & cell5.equals("机加车间")==false & cell5.equals("装配车间")==false){
             return 2;//返回2时，说明区域单元格没有控制只能写6大车间之内的东西
@@ -106,7 +103,7 @@ public class EnvironmentController {
             return 3;//返回1 时，说明模版最后一行 一共有多少行不对
         };
         String written_by= sheetAt.getRow(0).getCell(2).toString();//第一行第三个单元格 :编写
-        String date="20"+sheetAt.getRow(0).getCell(3).toString().substring(3,5)+"-"+sheetAt.getRow(0).getCell(3).toString().substring(6,8);
+        String date=date1;
         String zone=sheetAt.getRow(0).getCell(5).toString();//第一行第五个单元格 :区域
 
         try{
@@ -212,16 +209,13 @@ public class EnvironmentController {
 
     @ApiOperation("班组: 增加基础数据")
     @PostMapping(value = "/addEnvironmentBaseGroup")
-    public int addEnvironmentBaseGroup(@RequestParam("file") MultipartFile file,String nickName) throws IOException{
+    public int addEnvironmentBaseGroup(@RequestParam("file") MultipartFile file,String nickName,String date1) throws IOException{
         FileInputStream fns=(FileInputStream)file.getInputStream();
         XSSFWorkbook wb=new XSSFWorkbook(fns);//xssWorkbook少了hssworkbook的解析成 POIFSFileSystem数据类型这一步
         XSSFSheet sheetAt = wb.getSheetAt(0);
         if(sheetAt==null) {
             return 0;
         }
-        if(sheetAt.getRow(0).getCell(3).toString().length()!=12){
-            return 1;//返回1 时，说明日期单元格位数不对
-        };
         String cell5=sheetAt.getRow(0).getCell(5).toString();
         if(cell5.equals("冲压车间")==false & cell5.equals("车身车间")==false & cell5.equals("涂装车间")==false & cell5.equals("总装车间")==false & cell5.equals("机加车间")==false & cell5.equals("装配车间")==false){
             return 2;//返回2时，说明区域单元格没有控制只能写6大车间之内的东西
@@ -230,7 +224,7 @@ public class EnvironmentController {
             return 3;//返回1 时，说明模版最后一行 一共有多少行不对
         };
         String written_by= sheetAt.getRow(0).getCell(2).toString();//第一行第三个单元格 :编写
-        String date="20"+sheetAt.getRow(0).getCell(3).toString().substring(3,5)+"-"+sheetAt.getRow(0).getCell(3).toString().substring(6,8);
+        String date=date1;
         String zone=sheetAt.getRow(0).getCell(5).toString();//第一行第五个单元格 :区域
 
         try{
@@ -392,16 +386,13 @@ public class EnvironmentController {
     /*完成，目前无bug*/
     @ApiOperation("工段: 增加基础数据")
     @PostMapping(value = "/addEnvironmentBaseWorkShop")
-    public int addEnvironmentBaseWorkShop(@RequestParam("file") MultipartFile file,String nickName) throws IOException{
+    public int addEnvironmentBaseWorkShop(@RequestParam("file") MultipartFile file,String nickName,String date1) throws IOException{
         FileInputStream fns=(FileInputStream)file.getInputStream();
         XSSFWorkbook wb=new XSSFWorkbook(fns);//xssWorkbook少了hssworkbook的解析成 POIFSFileSystem数据类型这一步
         XSSFSheet sheetAt = wb.getSheetAt(0);
         if(sheetAt==null) {
             return 0;
         }
-        if(sheetAt.getRow(0).getCell(3).toString().length()!=12){
-            return 1;//返回1 时，说明日期单元格位数不对
-        };
         String cell5=sheetAt.getRow(0).getCell(5).toString();
         if(cell5.equals("冲压车间")==false & cell5.equals("车身车间")==false & cell5.equals("涂装车间")==false & cell5.equals("总装车间")==false & cell5.equals("机加车间")==false & cell5.equals("装配车间")==false){
             return 2;//返回2时，说明区域单元格没有控制只能写6大车间之内的东西
@@ -410,7 +401,7 @@ public class EnvironmentController {
             return 3;//返回1 时，说明模版最后一行 一共有多少行不对
         };
         String written_by= sheetAt.getRow(0).getCell(2).toString();//第一行第三个单元格 :编写
-        String date="20"+sheetAt.getRow(0).getCell(3).toString().substring(3,5)+"-"+sheetAt.getRow(0).getCell(3).toString().substring(6,8);
+        String date=date1;
         String zone=sheetAt.getRow(0).getCell(5).toString();//第一行第五个单元格 :区域
 
         try{
@@ -589,16 +580,13 @@ public class EnvironmentController {
 
     @ApiOperation("区域: 增加基础数据")
     @PostMapping(value = "/addEnvironmentBaseZone")
-    public int addEnvironmentBaseZone(@RequestParam("file") MultipartFile file,String nickName) throws IOException{
+    public int addEnvironmentBaseZone(@RequestParam("file") MultipartFile file,String nickName,String date1) throws IOException{
         FileInputStream fns=(FileInputStream)file.getInputStream();
         XSSFWorkbook wb=new XSSFWorkbook(fns);//xssWorkbook少了hssworkbook的解析成 POIFSFileSystem数据类型这一步
         XSSFSheet sheetAt = wb.getSheetAt(0);
         if(sheetAt==null) {
             return 0;
         }
-        if(sheetAt.getRow(0).getCell(3).toString().length()!=12){
-            return 1;//返回1 时，说明日期单元格位数不对
-        };
         String cell5=sheetAt.getRow(0).getCell(5).toString();
         if(cell5.equals("冲压车间")==false & cell5.equals("车身车间")==false & cell5.equals("涂装车间")==false & cell5.equals("总装车间")==false & cell5.equals("机加车间")==false & cell5.equals("装配车间")==false){
             return 2;//返回2时，说明区域单元格没有控制只能写6大车间之内的东西
@@ -607,7 +595,7 @@ public class EnvironmentController {
             return 3;//返回1 时，说明模版最后一行 一共有多少行不对
         };
         String written_by= sheetAt.getRow(0).getCell(2).toString();//第一行第三个单元格 :编写
-        String date="20"+sheetAt.getRow(0).getCell(3).toString().substring(3,5)+"-"+sheetAt.getRow(0).getCell(3).toString().substring(6,8);
+        String date=date1;
 
         try{
             for (int i = 5; i <sheetAt.getRow(1).getLastCellNum() ; i++) {
