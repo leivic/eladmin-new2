@@ -1,27 +1,27 @@
 package me.zhengjie.modules.qe.rest;
 
+import com.alibaba.fastjson.JSON;
 import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import me.zhengjie.modules.qe.domain.ConsiciousControl;
 import me.zhengjie.modules.qe.domain.ContinueDatasource;
 import me.zhengjie.modules.qe.domain.ContinueFile;
-import me.zhengjie.modules.qe.polo.ContinuePiechart;
-import me.zhengjie.modules.qe.polo.Continuetotaldata;
-import me.zhengjie.modules.qe.polo.Continuezhiliangshuipin;
-import me.zhengjie.modules.qe.polo.Continuezhiliangtishen;
+import me.zhengjie.modules.qe.polo.*;
+import me.zhengjie.modules.qe.service.ConsiciousControlService;
 import me.zhengjie.modules.qe.service.ContinueDatasourceService;
 import me.zhengjie.modules.qe.service.ContinueFileService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -43,6 +43,8 @@ public class ContinueController {
     private ContinueFileService continueFileService;
     @Autowired
     private ContinueDatasourceService continueDatasourceService;
+    @Autowired
+    private ConsiciousControlService consiciousControlService;
 
     @PostMapping("/upload") //上传文件的方法
     public String upload(MultipartFile aaa,String file_type,String file_date,String zone,String create_by) throws IOException { //Httpsession session
@@ -163,6 +165,38 @@ public class ContinueController {
         return 1;
     }
 
+    @ApiOperation("增加质量分解指标数据 ")
+    @PostMapping("/uploadgoaldata")
+    public int uploadgoaldata(@RequestParam("file") MultipartFile file, String date)throws IOException{
+        FileInputStream fns=(FileInputStream)file.getInputStream();
+        XSSFWorkbook wb=new XSSFWorkbook(fns);//xssWorkbook少了hssworkbook的解析成 POIFSFileSystem数据类型这一步
+        XSSFSheet sheetAt = wb.getSheetAt(0);
+        String year=sheetAt.getRow(1).getCell(0).toString().substring(0,4);
+        List<ConsiciousControl> arr=new ArrayList<>();
+        for (int i = 3; i <sheetAt.getLastRowNum() -6 ; i++){
+            ConsiciousControl consiciousControl=new ConsiciousControl();
+            consiciousControl.setYear(year);
+            consiciousControl.setType(sheetAt.getRow(i).getCell(1).toString());
+            consiciousControl.setTarget(sheetAt.getRow(i).getCell(2).toString());
+            consiciousControl.setTargettype(sheetAt.getRow(i).getCell(3).toString());
+            consiciousControl.setTargetstandard(sheetAt.getRow(i).getCell(4).toString());
+            consiciousControl.setDepartment(sheetAt.getRow(i).getCell(5).toString());
+            consiciousControl.setZoneperson(sheetAt.getRow(i).getCell(6).toString());
+            consiciousControl.setPerson_in_charge(sheetAt.getRow(i).getCell(7).toString());
+            consiciousControl.setGoal(sheetAt.getRow(i).getCell(8).toString());
+            consiciousControl.setLashengoal(sheetAt.getRow(i).getCell(9).toString());
+            consiciousControl.setZhibiaofankuiren(sheetAt.getRow(i).getCell(10).toString());
+            arr.add(consiciousControl);
+        }
+        consiciousControlService.savedata(arr);
+        return 1;
+    }
+
+
+    @PostMapping("/getgoaldata")
+    public List<ConsiciousControl> getgoaldata(String year){
+        return consiciousControlService.findAllByYear(year);
+    }
 
     // 数据源查找
     @GetMapping("/findByzoneanddate")
@@ -798,5 +832,44 @@ public class ContinueController {
     public Page<ContinueFile>  findAllBydatetypeAndZone(int page, int size, String sort,String date,String type,String zone){
 
         return continueFileService.findAllBydatetypeAndZone(page, size, sort, date, type, zone);
+    }
+
+    @PostMapping("/gettablelabel")
+    public ArrayList<ControlProps> gettablelabel(String year){
+        ArrayList<ControlProps> arrayList=new ArrayList<>();
+        String[] arrary1={"id","年","车型","指标","指标类型","指标级别","责任部门","区域责任人","指标负责人","目标值","拉伸指标","指标反馈人","1月目标","1月实际","2月目标","2月实际","3月目标","3月实际","4月目标","4月实际","5月目标","5月实际","6月目标","6月实际","7月目标","7月实际","8月目标","8月实际","9月目标","9月实际","10月目标","10月实际","11月目标","11月实际","12月目标","12月实际"};
+        String[] arrary2={"id","year","type","target","targettype","targetstandard","department","zoneperson","person_in_charge","goal","lashengoal","zhibiaofankuiren","yiyuegoal","yiyueshiji","eryuegoal","eryueshiji","sanyuegoal","sanyueshiji","siyuegoal","siyueshiji","wuyuegoal","wuyueshiji","liuyuegoal","liuyueshiji","qiyuegoal","qiyueshiji","bayuegoal","bayueshiji","jiuyuegoal","jiuyueshiji","shiyuegoal","shiyueshiji","shiyiyuegoal","shiyiyueshiji","shieryuegoal","shieryueshiji"};
+        Calendar cal=Calendar.getInstance();
+        String y=String.valueOf(cal.get(Calendar.YEAR));//如果月份不相等时，展示所有数据
+        int m=cal.get(Calendar.MONTH); //获得当前是几月
+        int x=m*2+12;
+        if(year.equals(y)==false){
+            for (int i = 0; i <arrary1.length ; i++) {
+                ControlProps controlProps=new ControlProps();
+                controlProps.setpropandlabel(arrary1[i],arrary2[i]);
+                arrayList.add(controlProps);
+            }
+            return  arrayList;
+        }else { //当传入的year是今年时 代码要拆成一个个小的模块
+            for (int i = 0; i <x+2 ; i++) {
+                ControlProps controlProps=new ControlProps();
+                controlProps.setpropandlabel(arrary1[i],arrary2[i]);
+                arrayList.add(controlProps);
+            }
+            return  arrayList;
+        }
+
+
+    }
+
+    @PostMapping("/updatezhiliangfenjiebyid")
+    public void updatezhiliangfenjiebyid(String consiciousControljson){
+        ConsiciousControl consiciousControl=JSON.parseObject(consiciousControljson,ConsiciousControl.class);//将接口传过来的json数据转换为对应的实体类对象 fastjson的包
+        consiciousControlService.changeConsiciousControlbyid(consiciousControl);//不能直接传入consiciousControljson 接收前端传过来的是json数据 不是java实体类对象
+    }
+
+    @PostMapping("/updatezhiliangzhuangtaibyid")
+    public void updatezhiliangzhuangtaibyid(int id,int zhaungtai,int yuefen){//更改状态
+        consiciousControlService.changezhuangtai(id,zhaungtai,yuefen);
     }
 }
