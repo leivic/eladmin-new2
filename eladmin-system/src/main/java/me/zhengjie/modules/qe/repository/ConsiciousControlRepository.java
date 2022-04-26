@@ -87,4 +87,48 @@ public interface ConsiciousControlRepository  extends JpaRepository<ConsiciousCo
     @Modifying
     @Query(value ="update consicious_control c set c.shieryuezhuangtai=?2 where c.id=?1",nativeQuery = true)
     void changeshieryuezhuangtaibyid(int id, int shieryuezhuangtai);
+
+    //月份各区域指标运行状态 所需数据
+    @Query(value = "select distinct co.department from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year "  +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //一年的部门去重数据
+    List finddepartmentbyyear(@Param("year") String year);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year "  +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //一年各部门总指标数结果集
+    List findtargetnumberbyyear(@Param("year") String year);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and yiyuezhuangtai = :yiyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang1(@Param("year") String year,@Param("yiyuezhuangtai") int yiyuezhuangtai); //匹配一月状态的数量 mysql通过group by 分组查询数量为0时会显示null 所以用这种外链接双层写法
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and eryuezhuangtai = :eryuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang2(@Param("year") String year,@Param("eryuezhuangtai") int eryuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and sanyuezhuangtai = :sanyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang3(@Param("year") String year,@Param("sanyuezhuangtai") int sanyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and siyuezhuangtai = :siyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang4(@Param("year") String year,@Param("siyuezhuangtai") int siyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and wuyuezhuangtai = :wuyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang5(@Param("year") String year,@Param("wuyuezhuangtai") int wuyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and liuyuezhuangtai = :liuyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang6(@Param("year") String year,@Param("liuyuezhuangtai") int liuyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and qiyuezhuangtai = :qiyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang7(@Param("year") String year,@Param("qiyuezhuangtai") int qiyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and bayuezhuangtai = :bayuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang8(@Param("year") String year,@Param("bayuezhuangtai") int bayuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and jiuyuezhuangtai = :jiuyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang9(@Param("year") String year,@Param("jiuyuezhuangtai") int jiuyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and shiyuezhuangtai = :shiyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang10(@Param("year") String year,@Param("shiyuezhuangtai") int shiyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and shiyiyuezhuangtai = :shiyiyuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang11(@Param("year") String year,@Param("shiyiyuezhuangtai") int shiyiyuezhuangtai);
+
+    @Query(value = "select distinct co.department,ifnull(tb.count,0) from  consicious_control co left join(select department,count(*) count from consicious_control  where"+" year = :year " +"and shieryuezhuangtai = :shieryuezhuangtai" +" group by department order by department desc) as tb on co.department = tb.department",nativeQuery = true) //查询一月合格/不合格  这种应该学会字符串拼接 就不用连写12条
+    List finddepartmenthegezhiliang12(@Param("year") String year,@Param("shieryuezhuangtai") int shieryuezhuangtai);
+
 }
