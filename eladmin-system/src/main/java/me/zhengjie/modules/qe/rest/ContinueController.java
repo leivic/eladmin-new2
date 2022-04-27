@@ -944,4 +944,78 @@ public class ContinueController {
         System.out.print(consiciousControlService.finddepartmenthegezhiliang(year,yiyuezhuangtai,jiyue));
         return consiciousControlService.finddepartmenthegezhiliang(year,yiyuezhuangtai,jiyue);
     }
+
+    //以下获得年度的每月状态表
+    @PostMapping("/getzhibiaoshunumberarrbyyear")
+    public List getzhibiaoshunumberarrbyyear(String year){ //获得这个年度的指标数量有多少
+        List list=new ArrayList();//List是抽象类  不能生成实例
+        List<ConsiciousControl> list1 =consiciousControlService.findAllByYear(year);
+        long a=list1.stream().count();
+        for (int i = 0; i <12 ; i++) {
+            list.add(i,a);
+        }
+        return list;
+    }
+
+    @PostMapping("/getlvsexiangnumberarrbyyear")
+    public List getlvsexiangnumberarrbyyear(String year){//获得这个年度绿色项的指标数量有多少
+        List list=new ArrayList();
+        List<ConsiciousControl> list1 =consiciousControlService.findAllByYear(year);
+        long x1=list1.stream().filter(a->a.getYiyuezhuangtai()==1).count();
+        long x2=list1.stream().filter(a->a.getEryuezhuangtai()==1).count();
+        long x3=list1.stream().filter(a->a.getSanyuezhuangtai()==1).count();
+        long x4=list1.stream().filter(a->a.getSiyuezhuangtai()==1).count();
+        long x5=list1.stream().filter(a->a.getWuyuezhuangtai()==1).count();
+        long x6=list1.stream().filter(a->a.getLiuyuezhuangtai()==1).count();
+        long x7=list1.stream().filter(a->a.getQiyuezhuangtai()==1).count();
+        long x8=list1.stream().filter(a->a.getBayuezhuangtai()==1).count();
+        long x9=list1.stream().filter(a->a.getJiuyuezhuangtai()==1).count();
+        long x10=list1.stream().filter(a->a.getShiyuezhuangtai()==1).count();
+        long x11=list1.stream().filter(a->a.getShiyiyuezhuangtai()==1).count();
+        long x12=list1.stream().filter(a->a.getShieryuezhuangtai()==1).count();
+        list.add(0,x1);
+        list.add(1,x2);
+        list.add(2,x3);
+        list.add(3,x4);
+        list.add(4,x5);
+        list.add(5,x6);
+        list.add(6,x7);
+        list.add(7,x8);
+        list.add(8,x9);
+        list.add(9,x10);
+        list.add(10,x11);
+        list.add(11,x12);
+        return list;
+    }
+
+    @PostMapping("/gethongsexiangnumberarrbyyear")
+    public List gethongsexiangnumberarrbyyear(String year){//获得这个年度红色项项的指标数量有多少
+        List list=new ArrayList();
+        List<ConsiciousControl> list1 =consiciousControlService.findAllByYear(year);
+        long x1=list1.stream().filter(a->a.getYiyuezhuangtai()==2).count();
+        long x2=list1.stream().filter(a->a.getEryuezhuangtai()==2).count();
+        long x3=list1.stream().filter(a->a.getSanyuezhuangtai()==2).count();
+        long x4=list1.stream().filter(a->a.getSiyuezhuangtai()==2).count();
+        long x5=list1.stream().filter(a->a.getWuyuezhuangtai()==2).count();
+        long x6=list1.stream().filter(a->a.getLiuyuezhuangtai()==2).count();
+        long x7=list1.stream().filter(a->a.getQiyuezhuangtai()==2).count();
+        long x8=list1.stream().filter(a->a.getBayuezhuangtai()==2).count();
+        long x9=list1.stream().filter(a->a.getJiuyuezhuangtai()==2).count();
+        long x10=list1.stream().filter(a->a.getShiyuezhuangtai()==2).count();
+        long x11=list1.stream().filter(a->a.getShiyiyuezhuangtai()==2).count();
+        long x12=list1.stream().filter(a->a.getShieryuezhuangtai()==2).count();
+        list.add(0,x1);
+        list.add(1,x2);
+        list.add(2,x3);
+        list.add(3,x4);
+        list.add(4,x5);
+        list.add(5,x6);
+        list.add(6,x7);
+        list.add(7,x8);
+        list.add(8,x9);
+        list.add(9,x10);
+        list.add(10,x11);
+        list.add(11,x12);
+        return list;
+    }
 }
